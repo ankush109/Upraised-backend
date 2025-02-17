@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<!-- For testing realtime chat -->
+<head>
+    <title>Ably Real-Time Test</title>
+    <script src="https://cdn.ably.io/lib/ably.min-1.js"></script>
+</head>
+
+<body>
+    <h1>Real-Time Messaging Test</h1>
+    <div id="messages"></div>
+
+    <script>
+    
+        const ably = new Ably.Realtime('vM7HIw.CGET9A:EdKyVx9CIqcaYxHTOjR79eQk31iqsY55LInmxVUX9v4');
+        const chatId = '66894ae607f8d40d11b5cb04'; 
+
+        const channel = ably.channels.get(`chat-${chatId}`);
+
+        channel.subscribe('message', function (message) {
+            const messagesDiv = document.getElementById('messages');
+            const newMessage = document.createElement('div');
+            newMessage.textContent = `${message.data.sender.name}: ${message.data.content}`;
+            messagesDiv.appendChild(newMessage);
+        });
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,32 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id       String  @id @default(uuid()) @db.Uuid
+  name     String
+  email    String  @unique
+  password String
+  gadgets  Gadget[]
+}
+
+model Gadget {
+  id        String  @id @default(uuid()) @db.Uuid
+  name      String
+  status    Status  @default(Available)
+  createdBy String  @db.Uuid
+  user      User    @relation(fields: [createdBy], references: [id], onDelete: Cascade)
+  decommissionedAt DateTime?
+}
+
+enum Status {
+  Available
+  Deployed
+  Destroyed
+  Decommissioned
+}
