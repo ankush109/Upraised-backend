@@ -1,2 +1,4 @@
-# duocortex-backend
-# duocortex-backend
+how to run locally :
+
+
+1. docker compose up 
