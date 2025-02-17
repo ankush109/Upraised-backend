@@ -85,7 +85,10 @@ const loginController = {
 
       res.status(200).json({
         message: "User created successfully",
-        createdUser,
+        data:{
+          name:createdUser.name,
+          email:createdUser.email
+        },
       });
     } catch (err) {
       console.log(err);
